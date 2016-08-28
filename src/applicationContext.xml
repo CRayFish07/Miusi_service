@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName">
+			<value>com.mysql.jdbc.Driver</value>
+		</property>
+		<property name="url">
+			<value>jdbc:mysql://127.0.0.1:3306/miusi
+			</value>
+		</property>
+		<property name="username">
+			<value>root</value>
+		</property>
+		<property name="password">
+			<value>admin</value>
+		</property>
+	</bean>
+
+	<!-- 配置SessionFactory -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource">
+			<ref local="dataSource" />
+		</property>
+		<!-- 配置Hibernate的属性 -->
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+			</props>
+		</property>
+		<!-- 指定HIbernate映射文件的路径 -->
+		<property name="mappingResources">
+			<list>
+				<value>com/miusi/entity/Collect.hbm.xml</value>
+				<value>com/miusi/entity/Series.hbm.xml</value>
+				<value>com/miusi/entity/Picture.hbm.xml</value>
+				<value>com/miusi/entity/User.hbm.xml</value>
+			</list>
+		</property>
+	</bean>
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+	<!-- pictureDao -->
+	<bean id="pictureDao" class="com.miusi.dao.impl.PictureDaoImpl"
+		scope="singleton">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+
+	<bean id="pictureServiceTarget" class="com.miusi.service.impl.PictureServiceImpl">
+		<property name="pictureDao" ref="pictureDao"></property>
+	</bean>
+
+	<bean id="pictureService"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+
+		<property name="target" ref="pictureServiceTarget"></property>
+		<property name="transactionManager" ref="transactionManager"></property>
+
+		<property name="transactionAttributes">
+
+			<props>
+				<prop key="find*">PROPAGATION_REQUIRED,readOnly</prop>
+				<prop key="*">PROPAGATION_REQUIRED</prop>
+			</props>
+
+		</property>
+
+	</bean>
+
+	<!-- SeriesDao -->
+	<bean id="seriesDao" class="com.miusi.dao.impl.SeriesDaoImpl"
+		scope="singleton">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+
+	<bean id="seriesServiceTarget" class="com.miusi.service.impl.SeriesServiceImpl">
+		<property name="seriesDao" ref="seriesDao"></property>
+	</bean>
+
+	<bean id="seriesService"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+
+		<property name="target" ref="seriesServiceTarget"></property>
+		<property name="transactionManager" ref="transactionManager"></property>
+
+		<property name="transactionAttributes">
+
+			<props>
+				<prop key="find*">PROPAGATION_REQUIRED,readOnly</prop>
+				<prop key="*">PROPAGATION_REQUIRED</prop>
+			</props>
+
+		</property>
+
+	</bean>
+
+	<!-- UserDao -->
+	<bean id="userDao" class="com.miusi.dao.impl.UserDaoImpl" scope="singleton">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+
+	<bean id="userServiceTarget" class="com.miusi.service.impl.UserServiceImpl">
+		<property name="userDao" ref="userDao"></property>
+	</bean>
+
+	<bean id="userService"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+
+		<property name="target" ref="userServiceTarget"></property>
+		<property name="transactionManager" ref="transactionManager"></property>
+
+		<property name="transactionAttributes">
+
+			<props>
+				<prop key="find*">PROPAGATION_REQUIRED,readOnly</prop>
+				<prop key="*">PROPAGATION_REQUIRED</prop>
+			</props>
+
+		</property>
+
+	</bean>
+
+	<!-- CollectDao -->
+	<bean id="collectDao" class="com.miusi.dao.impl.CollectDaoImpl"
+		scope="singleton">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+
+	<bean id="collectServiceTarget" class="com.miusi.service.impl.CollectServiceImpl">
+		<property name="collectDao" ref="collectDao"></property>
+	</bean>
+
+	<bean id="collectService"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+
+		<property name="target" ref="collectServiceTarget"></property>
+		<property name="transactionManager" ref="transactionManager"></property>
+
+		<property name="transactionAttributes">
+
+			<props>
+				<prop key="find*">PROPAGATION_REQUIRED,readOnly</prop>
+				<prop key="*">PROPAGATION_REQUIRED</prop>
+			</props>
+
+		</property>
+
+	</bean>
+
+	<bean id="querySeriesAction" class="com.miusi.action.series.QuerySeriesAction"
+		scope="prototype">
+		<property name="seriesService" ref="seriesService"></property>
+	</bean>
+	<bean id="addPictureSeriesAction" class="com.miusi.action.series.AddPictureSeriesAction"
+		scope="prototype">
+		<property name="seriesService" ref="seriesService"></property>
+		<property name="pictureService" ref="pictureService"></property>
+	</bean>
+	<bean id="removeSeriesAction" class="com.miusi.action.series.RemoveSeriesAction"
+		scope="prototype">
+		<property name="seriesService" ref="seriesService"></property>
+		<property name="pictureService" ref="pictureService"></property>
+	</bean>
+
+	<bean id="showSeriesAction" class="com.miusi.action.series.ShowSeriesAction"
+		scope="prototype">
+		<property name="pictureService" ref="pictureService"></property>
+	</bean>
+	<bean id="addMorePictureAction" class="com.miusi.action.series.AddMorePictureAction"
+		scope="prototype">
+		<property name="seriesService" ref="seriesService"></property>
+		<property name="pictureService" ref="pictureService"></property>
+	</bean>
+	<bean id="addMorePictureAction2" class="com.miusi.action.series.AddMorePictureAction2"
+		scope="prototype">
+		<property name="seriesService" ref="seriesService"></property>
+		<property name="pictureService" ref="pictureService"></property>
+	</bean>
+	<bean id="removePictureAction" class="com.miusi.action.series.RemovePictureAction"
+		scope="prototype">
+		<property name="seriesService" ref="seriesService"></property>
+		<property name="pictureService" ref="pictureService"></property>
+	</bean>
+</beans>

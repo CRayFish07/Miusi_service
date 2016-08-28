@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="Miusi" extends="struts-default">
+		<action name="querySeries" class="querySeriesAction">
+			<result name="success">/series_query.jsp</result>
+		</action>
+		<action name="addPictureSeries" class="addPictureSeriesAction">
+			<result name="success">/series_query.jsp</result>
+		</action>
+
+		<action name="removeSeries" class="removeSeriesAction">
+			<result name="success">/series_query.jsp</result>
+		</action>
+
+		<action name="showSeries" class="showSeriesAction">
+			<result name="success">/picture_query.jsp</result>
+		</action>
+		<action name="addMorePicture" class="addMorePictureAction">
+			<result name="success">/add_more_picture.jsp</result>
+		</action>
+		<action name="addMorePicture2" class="addMorePictureAction2">
+			<result name="success">/picture_query.jsp</result>
+		</action>
+		<action name="removePicture" class="removePictureAction">
+			<result name="success">/picture_query.jsp</result>
+		</action>
+	</package>
+
+</struts>

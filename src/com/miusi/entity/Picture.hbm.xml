@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping
+PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.miusi.entity.Picture" table="picture">
+		<id name="id" column="id" type="int">
+			<generator class="identity"> <!-- 主键id的生成方式为自增 -->
+			</generator>
+		</id>
+		<property name="url" column="url" type="string"></property> 
+		<property name="need_vip" column="need_vip" type="int"></property>  
+		<property name="series_id" column="series_id" type="int"></property> 
+	 </class>
+</hibernate-mapping>
+

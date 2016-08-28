@@ -1,0 +1,25 @@
+package com.miusi.entity;
+
+public class Collect {
+	private Integer id;
+	private Integer user_id;
+	private Integer picture_id;
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public Integer getUser_id() {
+		return user_id;
+	}
+	public void setUser_id(Integer user_id) {
+		this.user_id = user_id;
+	}
+	public Integer getPicture_id() {
+		return picture_id;
+	}
+	public void setPicture_id(Integer picture_id) {
+		this.picture_id = picture_id;
+	}
+}

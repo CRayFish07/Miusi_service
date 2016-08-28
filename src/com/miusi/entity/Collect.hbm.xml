@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping
+PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.miusi.entity.Collect" table="collect">
+		<id name="id" column="id" type="int">
+			<generator class="identity"> <!-- 主键id的生成方式为自增 -->
+			</generator>
+		</id>
+		<property name="user_id" column="user_id" type="int"></property> 
+		<property name="picture_id" column="picture_id" type="int"></property>  
+	</class>
+</hibernate-mapping>
+
