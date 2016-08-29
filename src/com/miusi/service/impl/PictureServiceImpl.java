@@ -48,9 +48,9 @@ public class PictureServiceImpl implements PictureService {
 	}
 
 	@Override
-	public List<Picture> appQueryPicture(int id) {
+	public List<Picture> appQueryPicture(int id, int seriesId, int pageSize) {
 		// TODO Auto-generated method stub
-		return null;
+		return this.pictureDao.appQueryPicture(id, seriesId, pageSize);
 	}
 
 	@Override
@@ -63,5 +63,11 @@ public class PictureServiceImpl implements PictureService {
 	public List<Picture> findBySeriesId(int id) {
 		// TODO Auto-generated method stub
 		return this.pictureDao.findBySeriesId(id);
+	}
+
+	@Override
+	public List<Picture> findRecommend() {
+		// TODO Auto-generated method stub
+		return this.pictureDao.findRecommend();
 	}
 }

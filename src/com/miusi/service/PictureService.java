@@ -15,10 +15,12 @@ public interface PictureService {
 
 	public Picture findPictureById(int id);
 
-	public List<Picture> appQueryPicture(int id);
+	public List<Picture> appQueryPicture(int id, int seriesId, int pageSize);
 
 	public void removeSeriesPicture(int id);
 
 	public List<Picture> findBySeriesId(int id);
+
+	public List<Picture> findRecommend();
 
 }

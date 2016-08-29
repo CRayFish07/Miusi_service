@@ -15,8 +15,8 @@ public interface SeriesDao {
 
 	public List<Series> findAllSeries();
 
-	public List<Series> appQuerySeries(int id);
-	
+	public List<Series> appQuerySeries(int id, int pageSize);
+
 	public int findMaxId();
 
 	public List<Series> findLast20Series();

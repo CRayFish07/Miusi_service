@@ -166,11 +166,6 @@
 		scope="prototype">
 		<property name="seriesService" ref="seriesService"></property>
 	</bean>
-	<bean id="addPictureSeriesAction" class="com.miusi.action.series.AddPictureSeriesAction"
-		scope="prototype">
-		<property name="seriesService" ref="seriesService"></property>
-		<property name="pictureService" ref="pictureService"></property>
-	</bean>
 	<bean id="removeSeriesAction" class="com.miusi.action.series.RemoveSeriesAction"
 		scope="prototype">
 		<property name="seriesService" ref="seriesService"></property>
@@ -194,6 +189,18 @@
 	<bean id="removePictureAction" class="com.miusi.action.series.RemovePictureAction"
 		scope="prototype">
 		<property name="seriesService" ref="seriesService"></property>
+		<property name="pictureService" ref="pictureService"></property>
+	</bean>
+	<bean id="appQueryRecommendAction" class="com.miusi.action.series.AppQueryRecommendAction"
+		scope="prototype">
+		<property name="pictureService" ref="pictureService"></property>
+	</bean>
+	<bean id="appQuerySeriesAction" class="com.miusi.action.series.AppQuerySeriesAction"
+		scope="prototype">
+		<property name="seriesService" ref="seriesService"></property>
+	</bean>
+	<bean id="appQueryPictureAction" class="com.miusi.action.series.AppQueryPictureAction"
+		scope="prototype">
 		<property name="pictureService" ref="pictureService"></property>
 	</bean>
 </beans>

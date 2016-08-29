@@ -15,9 +15,11 @@ public interface PictureDao {
 
 	public List<Picture> findAllPicture();
 
-	public List<Picture> appQueryPicture(int id,int group_id);
+	public List<Picture> appQueryPicture(int id, int seriesId, int pageSize);
 
 	public void removeSeriesPicture(int id);
-	
+
 	public List<Picture> findBySeriesId(int id);
+
+	public List<Picture> findRecommend();
 }

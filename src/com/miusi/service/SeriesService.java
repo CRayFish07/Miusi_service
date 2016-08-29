@@ -15,7 +15,7 @@ public interface SeriesService {
 
 	public Series findSeriesById(int id);
 
-	public List<Series> appQuerySeries(int id);
+	public List<Series> appQuerySeries(int id, int pageSize);
 
 	public int findMaxId();
 

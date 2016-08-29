@@ -27,6 +27,12 @@
 		<action name="removePicture" class="removePictureAction">
 			<result name="success">/picture_query.jsp</result>
 		</action>
+		<action name="appQueryRecommend" class="appQueryRecommendAction">
+		</action>
+		<action name="appQuerySeries" class="appQuerySeriesAction">
+		</action>
+		<action name="appQueryPicture" class="appQueryPictureAction">
+		</action>
 	</package>
 
 </struts>

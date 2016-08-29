@@ -30,9 +30,9 @@ public class SeriesServiceImpl implements SeriesService {
 	}
 
 	@Override
-	public List<Series> appQuerySeries(int id) {
+	public List<Series> appQuerySeries(int id, int pageSize) {
 		// TODO Auto-generated method stub
-		return this.seriesDao.appQuerySeries(id);
+		return this.seriesDao.appQuerySeries(id, pageSize);
 	}
 
 	@Override
