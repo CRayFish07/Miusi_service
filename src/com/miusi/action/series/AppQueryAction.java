@@ -1,20 +1,34 @@
 package com.miusi.action.series;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.struts2.ServletActionContext;
 
 import com.miusi.entity.Picture;
+import com.miusi.entity.QueryInfo;
 import com.miusi.service.PictureService;
+import com.miusi.service.SeriesService;
 import com.miusi.util.JSONUtils;
+import com.miusi.util.JsonUtil;
 import com.opensymphony.xwork2.ActionSupport;
 
-@SuppressWarnings("serial")
-public class AppQueryRecommendAction extends ActionSupport {
+public class AppQueryAction extends ActionSupport {
 	private PictureService pictureService;
+	private SeriesService seriesService;
+
+	public SeriesService getSeriesService() {
+		return seriesService;
+	}
+
+	public void setSeriesService(SeriesService seriesService) {
+		this.seriesService = seriesService;
+	}
 
 	public PictureService getPictureService() {
 		return pictureService;
@@ -26,6 +40,28 @@ public class AppQueryRecommendAction extends ActionSupport {
 
 	@Override
 	public String execute() throws Exception {
+		HttpServletRequest request = ServletActionContext.getRequest();
+		BufferedReader bufferedReader = new BufferedReader(request.getReader());
+		StringBuffer sbf = new StringBuffer();
+		while ((bufferedReader.read()) != -1) {
+			sbf.append(bufferedReader.readLine());
+		}
+		String s = "{" + sbf.toString();
+		System.out.println(s);
+		QueryInfo info = new QueryInfo();
+		if (!s.equals("{")) {
+			info = JsonUtil.fromJson(s, QueryInfo.class);
+		}
+		switch (info.bizType) {
+		case 1:
+			action1_QueryRecommend();
+			break;
+		}
+
+		return null;
+	}
+
+	private void action1_QueryRecommend() {
 		Map<String, Object> map = new HashMap<String, Object>();
 		String status = null;
 		try {
@@ -43,6 +79,5 @@ public class AppQueryRecommendAction extends ActionSupport {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return null;
 	}
 }

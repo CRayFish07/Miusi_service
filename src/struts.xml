@@ -33,6 +33,8 @@
 		</action>
 		<action name="appQueryPicture" class="appQueryPictureAction">
 		</action>
+		<action name="appQuery" class="appQueryAction">
+		</action>
 	</package>
 
 </struts>
