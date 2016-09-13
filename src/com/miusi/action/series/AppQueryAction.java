@@ -12,6 +12,7 @@ import org.apache.struts2.ServletActionContext;
 
 import com.miusi.entity.Picture;
 import com.miusi.entity.QueryInfo;
+import com.miusi.entity.Series;
 import com.miusi.service.PictureService;
 import com.miusi.service.SeriesService;
 import com.miusi.util.JSONUtils;
@@ -56,6 +57,12 @@ public class AppQueryAction extends ActionSupport {
 		case 1:
 			action1_QueryRecommend();
 			break;
+		case 2:
+			action2_QuerySeries(info);
+			break;
+		case 3:
+			action3_QuerySeriesPicture(info);
+			break;
 		}
 
 		return null;
@@ -80,4 +87,47 @@ public class AppQueryAction extends ActionSupport {
 			e.printStackTrace();
 		}
 	}
+
+	private void action2_QuerySeries(QueryInfo info) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		String status = null;
+		try {
+			List<Series> list = this.seriesService.appQuerySeries(info.id,
+					info.pageSize);
+			System.out.println(list.size());
+			if (list.size() > 0) {
+				status = "1";
+				map.put("data", list);
+			} else {
+				status = "0";
+			}
+			map.put("status", status);
+			JSONUtils.toJson(ServletActionContext.getResponse(), map);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	private void action3_QuerySeriesPicture(QueryInfo info) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		String status = null;
+		try {
+			List<Picture> list = this.pictureService.appQueryPicture(1000,
+					info.id, 1000);
+			System.out.println(list.size());
+			if (list.size() > 0) {
+				status = "1";
+				map.put("data", list);
+			} else {
+				status = "0";
+			}
+			map.put("status", status);
+			JSONUtils.toJson(ServletActionContext.getResponse(), map);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
 }
