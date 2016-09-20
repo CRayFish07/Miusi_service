@@ -5,4 +5,5 @@ public class QueryInfo {
 	public int id;
 	public int pageNo;
 	public int pageSize;
+	public String imei;
 }

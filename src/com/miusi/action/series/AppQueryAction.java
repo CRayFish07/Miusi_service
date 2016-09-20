@@ -10,11 +10,16 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.struts2.ServletActionContext;
 
+import com.miusi.entity.Market;
 import com.miusi.entity.Picture;
 import com.miusi.entity.QueryInfo;
 import com.miusi.entity.Series;
+import com.miusi.entity.User;
+import com.miusi.service.MarketService;
 import com.miusi.service.PictureService;
 import com.miusi.service.SeriesService;
+import com.miusi.service.UserService;
+import com.miusi.util.GeneralUtil;
 import com.miusi.util.JSONUtils;
 import com.miusi.util.JsonUtil;
 import com.opensymphony.xwork2.ActionSupport;
@@ -22,6 +27,16 @@ import com.opensymphony.xwork2.ActionSupport;
 public class AppQueryAction extends ActionSupport {
 	private PictureService pictureService;
 	private SeriesService seriesService;
+	private UserService userService;
+	private MarketService marketService; 
+
+	public MarketService getMarketService() {
+		return marketService;
+	}
+
+	public void setMarketService(MarketService marketService) {
+		this.marketService = marketService;
+	}
 
 	public SeriesService getSeriesService() {
 		return seriesService;
@@ -37,6 +52,14 @@ public class AppQueryAction extends ActionSupport {
 
 	public void setPictureService(PictureService pictureService) {
 		this.pictureService = pictureService;
+	}
+
+	public UserService getUserService() {
+		return userService;
+	}
+
+	public void setUserService(UserService userService) {
+		this.userService = userService;
 	}
 
 	@Override
@@ -62,6 +85,15 @@ public class AppQueryAction extends ActionSupport {
 			break;
 		case 3:
 			action3_QuerySeriesPicture(info);
+			break;
+		case 4:
+			action4_QueryMode();
+			break;
+		case 5:
+			action5_QueryUser(info); 
+			break;
+		case 6:
+			action6_addUser(info);
 			break;
 		}
 
@@ -130,4 +162,60 @@ public class AppQueryAction extends ActionSupport {
 		}
 	}
 
+	private void action4_QueryMode() {
+		Map<String, Object> map = new HashMap<String, Object>();
+		String status = null;
+		try {
+			System.out.println("action4_QueryMode");
+			Market show = this.marketService.findMarket();
+			System.out.println(GeneralUtil.isEmpty(show));
+			if (!GeneralUtil.isEmpty(show)) {
+				status = "1";
+				map.put("data", show);
+			} else {
+				status = "0";
+			}
+			map.put("status", status);
+			JSONUtils.toJson(ServletActionContext.getResponse(), map);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	private void action5_QueryUser(QueryInfo info) {
+		String imei = info.imei;
+		Map<String, Object> map = new HashMap<String, Object>();
+		String status = null;
+		try {
+			User user = this.userService.appQueryUser(imei);
+			System.out.println(GeneralUtil.isEmpty(user));
+			if (!GeneralUtil.isEmpty(user)) {
+				status = "1";
+			} else {
+				status = "0";
+			}
+			map.put("status", status);
+			JSONUtils.toJson(ServletActionContext.getResponse(), map);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	private void action6_addUser(QueryInfo info) {
+		User user = new User();
+		user.setDevice_id(info.imei);
+		Map<String, Object> map = new HashMap<String, Object>();
+		String status = null;
+		try {
+			this.userService.saveUser(user);
+			status = "1";
+			map.put("status", status);
+			JSONUtils.toJson(ServletActionContext.getResponse(), map);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }

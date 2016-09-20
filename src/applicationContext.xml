@@ -39,6 +39,7 @@
 				<value>com/miusi/entity/Series.hbm.xml</value>
 				<value>com/miusi/entity/Picture.hbm.xml</value>
 				<value>com/miusi/entity/User.hbm.xml</value>
+				<value>com/miusi/entity/Market.hbm.xml</value>
 			</list>
 		</property>
 	</bean>
@@ -132,6 +133,34 @@
 		</property>
 
 	</bean>
+ 
+ 		<!-- MarketDao -->
+	<bean id="marketDao" class="com.miusi.dao.impl.MarketDaoImpl" scope="singleton">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+
+	<bean id="marketServiceTarget" class="com.miusi.service.impl.MarketServiceImpl">
+		<property name="marketDao" ref="marketDao"></property>
+	</bean>
+
+	<bean id="marketService"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+
+		<property name="target" ref="marketServiceTarget"></property>
+		<property name="transactionManager" ref="transactionManager"></property>
+
+		<property name="transactionAttributes">
+
+			<props>
+				<prop key="find*">PROPAGATION_REQUIRED,readOnly</prop>
+				<prop key="*">PROPAGATION_REQUIRED</prop>
+			</props>
+
+		</property>
+
+	</bean>
 
 	<!-- CollectDao -->
 	<bean id="collectDao" class="com.miusi.dao.impl.CollectDaoImpl"
@@ -212,5 +241,7 @@
 		scope="prototype">
 		<property name="pictureService" ref="pictureService"></property>
 		<property name="seriesService" ref="seriesService"></property>
+		<property name="userService" ref="userService"></property>
+		<property name="marketService" ref="marketService"></property>
 	</bean>
 </beans>

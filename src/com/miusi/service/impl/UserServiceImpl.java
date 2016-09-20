@@ -48,8 +48,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<User> appQueryUser(int id) {
+	public User appQueryUser(String imei) {
 		// TODO Auto-generated method stub
-		return null;
+		return this.userDao.appQueryUser(imei);
 	}
 }

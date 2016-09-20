@@ -15,5 +15,5 @@ public interface UserDao {
 
 	public List<User> findAllUser();
 
-	public List<User> appQueryUser(int id);
+	public User appQueryUser(String imei);
 }
