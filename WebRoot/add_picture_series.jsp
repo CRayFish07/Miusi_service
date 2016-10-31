@@ -12,7 +12,7 @@
 <body>
 	<%@include file="/top_table.jsp"%>   
 	<s:form action="addPictureSeries" method="post">  
-        <s:iterator value="new int[20]" var="pictureList" status="status">  
+        <s:iterator value="new int[100]" var="pictureList" status="status">  
             <tr>
 				<td><label>图片地址:</label>   <s:textfield cols="100" rows="1" name="%{'pictureList['+#status.index+'].url'}" theme="simple"></s:textfield> </td>
 				<td><label>会员可见:</label>  

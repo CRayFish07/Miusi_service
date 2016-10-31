@@ -45,6 +45,15 @@ public class AddPictureSeriesAction extends ActionSupport {
 	@Override
 	public String execute() throws Exception {
 		// TODO Auto-generated method stub
+		if ((!GeneralUtil.isEmpty(pictureList.get(0)))
+				&& (!GeneralUtil.isEmpty(pictureList.get(0).getUrl()))) {
+			System.out.print(pictureList.get(0).getUrl());
+			String s[] = pictureList.get(0).getUrl().split("###");
+			int l = Integer.parseInt(s[1]);
+			for (int i = 0; i < l; i++) {
+				pictureList.get(i).setUrl(s[0] + (i + 1) + ".jpg");
+			}
+		}
 		for (int i = 0; i < pictureList.size(); i++) {
 			if ((!GeneralUtil.isEmpty(pictureList.get(i)))
 					&& (!GeneralUtil.isEmpty(pictureList.get(i).getUrl()))) {

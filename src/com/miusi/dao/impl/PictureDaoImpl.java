@@ -84,7 +84,7 @@ public class PictureDaoImpl extends HibernateDaoSupport implements PictureDao {
 			Query query = this.getSession().createQuery(hql);
 			// 设置起始行数和最大查询行数
 			query.setFirstResult(0);
-			query.setMaxResults(30);
+			query.setMaxResults(200);
 			// 返回前10条记录。
 			Cache.recommendList = query.list();
 		}

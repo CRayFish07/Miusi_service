@@ -145,7 +145,7 @@ public class AppQueryAction extends ActionSupport {
 		Map<String, Object> map = new HashMap<String, Object>();
 		String status = null;
 		try {
-			List<Picture> list = this.pictureService.appQueryPicture(1000,
+			List<Picture> list = this.pictureService.appQueryPicture(99999,
 					info.id, 1000);
 			System.out.println(list.size());
 			if (list.size() > 0) {

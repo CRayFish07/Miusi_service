@@ -7,6 +7,7 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import com.miusi.dao.UserDao;
 import com.miusi.entity.User;
+import com.miusi.util.GeneralUtil;
 
 public class UserDaoImpl extends HibernateDaoSupport implements UserDao {
 
@@ -45,13 +46,16 @@ public class UserDaoImpl extends HibernateDaoSupport implements UserDao {
 	@Override
 	public User appQueryUser(String imei) {
 		// TODO Auto-generated method stub
-		String hql = "from User user where user.imei=" + imei
+		String hql = "from User user where user.device_id=" + imei
 				+ "order by id desc";
 		// 创建查询对象
 		Query query = this.getSession().createQuery(hql);
 		// 设置起始行数和最大查询行数
 		query.setFirstResult(0);
 		query.setMaxResults(1);
+		if (GeneralUtil.isListEmpty(query.list())) {
+			return null;
+		}
 		return (User) query.list().get(0);
 	}
 
